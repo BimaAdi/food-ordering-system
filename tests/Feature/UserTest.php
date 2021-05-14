@@ -16,7 +16,7 @@ class UserTest extends TestCase
 
     public function test_not_login_user()
     {
-        $response = $this->get('/');
+        $response = $this->get('/login');
 
         $response->assertSee('Login');
         $response->assertSee('Sign In to your account');
@@ -35,7 +35,7 @@ class UserTest extends TestCase
             'role_id' => $role->id
         ]);
 
-        $response = $this->actingAs($user)->get('/home');
+        $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertSee('TestGuy');
     }
@@ -56,7 +56,7 @@ class UserTest extends TestCase
             'role_id' => $role->id
         ]);
 
-        $response = $this->actingAs($user)->get('/home');
+        $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertSee('User');
         
@@ -66,13 +66,13 @@ class UserTest extends TestCase
         ]);
 
         $user = User::factory()->create([
-            'name' => 'TestGuy',
-            'email' => 'testguy@local',
+            'name' => 'TestWaiterGuy',
+            'email' => 'testWaiterguy@local',
             'password' => Hash::make('test123'),
             'role_id' => $role->id
         ]);
 
-        $response = $this->actingAs($user)->get('/home');
+        $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertDontSee('User');
     }

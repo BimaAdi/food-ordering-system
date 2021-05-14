@@ -1,73 +1,70 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
+@include('layouts.partials.head')
+<body class="c-app flex-row align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
+                    <h1>Login</h1>
+                    <p class="text-muted">Sign In to your account</p>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    {{-- Email Input --}}
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <svg class="c-icon">
+                                    <use xlink:href="{{ asset('core-ui/vendors/@coreui/icons/svg/free.svg#cil-user') }}"></use>
+                                </svg>
+                            </span>
                         </div>
+                        <input class="form-control" type="text" placeholder="Email" name="email" value="{{ old('email') }}">
+                    </div>
+                    @error('email')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    {{-- Password Input --}}
+                    <div class="input-group mt-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <svg class="c-icon">
+                                    <use xlink:href="{{ asset('core-ui/vendors/@coreui/icons/svg/free.svg#cil-lock-locked') }}"></use>
+                                </svg>
+                            </span>
                         </div>
+                        <input class="form-control" type="password" placeholder="Password" name="password">
+                    </div>
+                    @error('password')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    
+                    <div class="row">
+                    <div class="col-6 mt-4">
+                        <button type="submit" class="btn btn-primary px-4">Login</button>
+                    </div>
+                    </div>
+                </form>
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+              </div>
             </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <h2>Food Ordering</h2>
+                <h2>System</h2>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-@endsection
+    <!-- CoreUI and necessary plugins-->
+    <script src="{{ asset('core-ui/vendors/@coreui/coreui/js/coreui.bundle.min.js') }}"></script>
+    <!--[if IE]><!-->
+    <script src="{{ asset('core-ui/vendors/@coreui/icons/js/svgxuse.min.js') }}"></script>
+    <!--<![endif]-->
+  </body>
+</html>
